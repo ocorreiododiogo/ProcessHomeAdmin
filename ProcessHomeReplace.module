@@ -20,9 +20,10 @@ class ProcessHomeReplace extends Process {
 		return array(
 			'title' => __('Replace Admin Home', __FILE__), // getModuleInfo title 
 			'summary' => __('Replaces the Admin Home process to allow to choose the default admin page.', __FILE__), // getModuleInfo summary
-			'version' => 100, 
+			'version' => 100,
+			'author' => 'Diogo Oliveira',
 			'permission' => 'page-view', 
-			'permanent' => true, 
+			'permanent' => true,
 			);
 	}
 
