@@ -14,21 +14,38 @@
  *
  */
 
-class ProcessHomeReplace extends Process {
+class ProcessHomeReplace extends Process implements ConfigurableModule {
 
   static public function getModuleInfo() {
 		return array(
 			'title' => __('Replace Admin Home', __FILE__), // getModuleInfo title 
 			'summary' => __('Replaces the Admin Home process to allow to choose the default admin page.', __FILE__), // getModuleInfo summary
-			'version' => 100,
+			'version' => 101,
 			'author' => 'Diogo Oliveira',
 			'permission' => 'page-view', 
 			'permanent' => true,
 			);
 	}
 
+	// redirect to the chosen page
 	public function ___execute() {
-   		$this->session->redirect($this->page->child->url); 
+		$data = wire('modules')->getModuleConfigData($this); 
+   		$this->session->redirect($this->pages->get($data['firstpage'])->url); 
 	}	
+	
+	// enables to chose a admin page
+	public static function getModuleConfigInputfields(array $data) {
+		
+		$inputfields = new InputfieldWrapper(); 
+
+		$field = wire('modules')->get('InputfieldPageListSelect');
+		$field->name = 'firstpage';
+		$field->set('parent_id', wire('config')->adminRootPageID); 
+		$field->label = "Choose the new first page";
+		if(isset($data['firstpage'])) $field->value = $data['firstpage'];
+		$inputfields->add($field); 
+		
+		return $inputfields;
+	}
 
 }
