@@ -22,8 +22,7 @@ class ProcessHomeReplace extends Process implements ConfigurableModule {
 			'summary' => __('Replaces the Admin Home process to allow to choose the default admin page.', __FILE__), // getModuleInfo summary
 			'version' => 102,
 			'author' => 'Diogo Oliveira',
-			'permission' => 'page-view', 
-			'permanent' => true,
+			'permission' => 'page-view'
 		);
 	}
 
